@@ -1,4 +1,3 @@
-ifneq ($(wildcard vendor/opengapps),)
 PRODUCT_COPY_FILES += \
 	device/phh/treble/empty-permission.xml:system/etc/permissions/com.google.android.camera2.xml \
 	device/phh/treble/empty-permission.xml:system/etc/permissions/com.google.android.camera.experimental2015.xml \
@@ -16,12 +15,15 @@ PRODUCT_PACKAGES += \
        Chrome \
        CalculatorGoogle \
        PrebuiltDeskClockGoogle \
+       PrebuiltBugle \
        CalendarGooglePrebuilt \
        LatinImeGoogle \
+       DigitalWellbeing \
+       Velvet \
+       GoogleContacts \
        phh-overrides
 
-$(call inherit-product, vendor/opengapps/build/opengapps-packages.mk)
-endif
+$(call inherit-product-if-exists, vendor/opengapps/build/opengapps-packages.mk)
 
 #Pixel Experience gapps
 ifneq ($(wildcard vendor/gapps),)
