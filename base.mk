@@ -46,6 +46,11 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
 	frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:system/etc/usb_audio_policy_configuration.xml
 
+PRODUCT_COPY_FILES += \
+	device/phh/treble/rootdir/etc/audio_policy_configuration_stub.xml:system/etc/audio_policy_configuration_stub.xml \
+	device/phh/treble/rootdir/etc/audio_policy_configuration.xml:system/etc/audio_policy_configuration.xml \
+	device/phh/treble/rootdir/etc/audio_policy_volumes.xml:system/etc/audio_policy_volumes.xml
+
 # NFC:
 #   Provide default libnfc-nci.conf file for devices that does not have one in
 #   vendor/etc
@@ -79,6 +84,9 @@ PRODUCT_PACKAGES += \
 	huawei-charger
 PRODUCT_COPY_FILES += \
 	$(call find-copy-subdir-files,*,device/phh/treble/huawei_charger/files,system/etc/charger)
+
+PRODUCT_COPY_FILES += \
+	device/phh/treble/rootdir/charger:root/sbin/charger
 
 PRODUCT_COPY_FILES += \
 	device/phh/treble/twrp/twrp.rc:system/etc/init/twrp.rc \
