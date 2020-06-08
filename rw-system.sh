@@ -80,6 +80,7 @@ changeKeylayout() {
 
         cp /system/phh/samsung-gpio_keys.kl /mnt/phh/keylayout/gpio_keys.kl
         cp /system/phh/samsung-sec_touchscreen.kl /mnt/phh/keylayout/sec_touchscreen.kl
+        cp /system/phh/samsung-sec_touchkey.kl /mnt/phh/keylayout/sec_touchkey.kl
         chmod 0644 /mnt/phh/keylayout/gpio_keys.kl /mnt/phh/keylayout/sec_touchscreen.kl
     fi
 
@@ -158,6 +159,12 @@ changeKeylayout() {
     if getprop ro.vendor.build.fingerprint |grep -q -e google/;then
         cp /system/phh/google-uinput-fpc.kl /mnt/phh/keylayout/uinput-fpc.kl
         chmod 0644 /mnt/phh/keylayout/uinput-fpc.kl
+        changed=true
+    fi
+
+    if getprop ro.product.vendor.manufacturer |grep -q -e motorola;then
+        cp /system/phh/moto-uinput-egis.kl /mnt/phh/keylayout/uinput-egis.kl
+        chmod 0644 /mnt/phh/keylayout/uinput-egis.kl
         changed=true
     fi
 
@@ -675,7 +682,7 @@ if getprop ro.build.overlay.deviceid |grep -qE '^RMX';then
     fi
 fi
 
-if [ "$vndk" -le 28 ] && getprop ro.hardware |grep -q -e mt6761 -e mt6763 -e mt6765 -e mt6785;then
+if [ "$vndk" -le 28 ] && getprop ro.hardware |grep -q -e mt6761 -e mt6763 -e mt6765 -e mt6785 -e mt6757 -e mt8768;then
     setprop debug.stagefright.ccodec 0
 fi
 
@@ -726,3 +733,19 @@ if getprop ro.build.overlay.deviceid |grep -iq -e RMX1941 -e RMX1945 -e RMX1943 
 fi
 
 resetprop ro.bluetooth.library_name libbluetooth.so
+
+if getprop ro.vendor.build.fingerprint |grep -iq xiaomi/cepheus;then
+    setprop ro.netflix.bsp_rev Q855-16947-1
+fi
+
+if getprop ro.vendor.build.fingerprint |grep -qi redmi/curtana;then
+    setprop ro.netflix.bsp_rev Q6250-19132-1
+fi
+
+# Set props for Vsmart Live's fod
+if getprop ro.vendor.build.fingerprint |grep -q vsmart/V620A_open;then
+    setprop persist.sys.fp.fod.location.X_Y 447,1812
+    setprop persist.sys.fp.fod.size.width_height 186,186
+fi
+
+setprop vendor.display.res_switch_en 1
