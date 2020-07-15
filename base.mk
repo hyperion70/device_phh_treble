@@ -193,6 +193,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
 	android.hardware.biometrics.fingerprint@2.1-service.oppo.compat \
 
-
 PRODUCT_PACKAGES += \
-	vr_hwc
+	vr_hwc \
+	curl
