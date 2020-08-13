@@ -178,6 +178,14 @@ changeKeylayout() {
         changed=true
     fi
 
+    if getprop ro.vendor.asus.build.fp |grep -q ASUS_I01WD;then
+        cp /system/phh/zf6-goodixfp.kl /mnt/phh/keylayout/goodixfp.kl
+        cp /system/phh/zf6-googlekey_input.kl /mnt/phh/keylayout/googlekey_input.kl
+        chmod 0644 /mnt/phh/keylayout/goodixfp.kl
+        chmod 0644 /mnt/phh/keylayout/googlekey_input.kl
+        changed=true
+    fi
+
     if [ "$changed" = true ]; then
         mount -o bind /mnt/phh/keylayout /system/usr/keylayout
         restorecon -R /system/usr/keylayout
@@ -681,7 +689,8 @@ if getprop ro.vendor.build.fingerprint | grep -iq \
 fi
 
 if getprop ro.build.overlay.deviceid |grep -qE '^RMX';then
-    setprop oppo.camera.packname com.oppo.camera
+    resetprop ro.vendor.gsi.build.flavor byPass
+    setprop oppo.camera.packname com.oppo.engineermode.camera
     setprop sys.phh.xx.brand realme
 fi
 
@@ -705,7 +714,7 @@ if getprop ro.build.overlay.deviceid |grep -qE '^RMX';then
     fi
 fi
 
-if [ "$vndk" -le 28 ] && getprop ro.hardware |grep -q -e mt6761 -e mt6763 -e mt6765 -e mt6785 -e mt6757 -e mt8768 -e mt6779 -e mt6771;then
+if [ "$vndk" -le 28 ] && getprop ro.hardware |grep -q -e mt6761 -e mt6763 -e mt6765 -e mt6785 -e mt8768 -e mt6779 -e mt6771 -e mt8766;then
     setprop debug.stagefright.ccodec 0
 fi
 
